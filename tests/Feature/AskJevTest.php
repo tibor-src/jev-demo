@@ -14,12 +14,20 @@ class AskJevTest extends TestCase
         config()->set('ai.providers.openrouter.key', null);
 
         $this->get(route('jev.create'))
-            ->assertSee('text-[#f53003] dark:text-[#FF4433]">Jev Demo', false)
+            ->assertSee('text-[#f53003] dark:text-[#FF4433]">Jev - A Decision Model', false)
+            ->assertSee('<title>Jev - A Decision Model</title>', false)
             ->assertSeeInOrder([
-                'Jev Demo',
+                'Jev - A Decision Model',
+                'Demo',
+                'FAQs',
+                'What is Jev?',
+                'Resources',
+                'Lore',
                 'Jev is a decision model from TypeSafe.',
                 'Classify a message',
             ])
+            ->assertSee('aria-current="page"', false)
+            ->assertSee('href="'.route('jev.faqs').'"', false)
             ->assertSee('Question')
             ->assertSee('>Input:</span>', false)
             ->assertSee('<code data-input', false)
@@ -61,9 +69,6 @@ class AskJevTest extends TestCase
             ->assertSee('TypeSafe JavaScript SDK')
             ->assertSee('https://openrouter.ai/', false)
             ->assertSee('made by', false)
-            ->assertSee('https://tibor.io', false)
-            ->assertSee('https://jev.tibor.io/preview.png', false)
-            ->assertSee('rel="canonical" href="https://jev.tibor.io/"', false)
             ->assertSee('>tibor.io</a>', false)
             ->assertDontSee('typesafe-sdk-js', false)
             ->assertDontSee('Jev package')

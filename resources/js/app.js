@@ -1,63 +1,68 @@
-const demo = JSON.parse(document.querySelector('#jev-demo').textContent);
-const token = document.querySelector('meta[name="csrf-token"]').content;
-const refreshRequests = [];
+const demoNode = document.querySelector('#jev-demo');
+let token = '';
 let language = 'php';
 
-document.querySelectorAll('[data-lang]').forEach((button) => {
-    button.addEventListener('click', () => {
-        language = button.dataset.lang;
+if (demoNode !== null) {
+    const demo = JSON.parse(demoNode.textContent);
+    token = document.querySelector('meta[name="csrf-token"]').content;
+    const refreshRequests = [];
 
-        document.querySelectorAll('[data-lang]').forEach((item) => {
-            const active = item.dataset.lang === language;
-            item.setAttribute('aria-pressed', active ? 'true' : 'false');
-            item.className = active
-                ? 'rounded-md bg-[#f53003] px-2 py-1 font-medium text-white dark:bg-[#FF4433]'
-                : 'rounded-md border border-[#e3e3e0] px-2 py-1 font-medium dark:border-[#3E3E3A]';
+    document.querySelectorAll('[data-lang]').forEach((button) => {
+        button.addEventListener('click', () => {
+            language = button.dataset.lang;
+
+            document.querySelectorAll('[data-lang]').forEach((item) => {
+                const active = item.dataset.lang === language;
+                item.setAttribute('aria-pressed', active ? 'true' : 'false');
+                item.className = active
+                    ? 'rounded-md bg-[#f53003] px-2 py-1 font-medium text-white dark:bg-[#FF4433]'
+                    : 'rounded-md border border-[#e3e3e0] px-2 py-1 font-medium dark:border-[#3E3E3A]';
+            });
+
+            refreshRequests.forEach((refresh) => refresh());
         });
-
-        refreshRequests.forEach((refresh) => refresh());
     });
-});
 
-document.querySelectorAll('[data-jev]').forEach((section) => {
-    const type = section.dataset.jev;
-    const question = demo.questions[type];
-    const select = section.querySelector('select');
-    const button = section.querySelector('button');
-    const before = section.querySelector('[data-before]');
-    const running = section.querySelector('[data-running]');
-    const after = section.querySelector('[data-after]');
-    const request = section.querySelector('[data-request]');
-    const response = section.querySelector('[data-response]');
-    const input = section.querySelector('[data-input]');
+    document.querySelectorAll('[data-jev]').forEach((section) => {
+        const type = section.dataset.jev;
+        const question = demo.questions[type];
+        const select = section.querySelector('select');
+        const button = section.querySelector('button');
+        const before = section.querySelector('[data-before]');
+        const running = section.querySelector('[data-running]');
+        const after = section.querySelector('[data-after]');
+        const request = section.querySelector('[data-request]');
+        const response = section.querySelector('[data-response]');
+        const input = section.querySelector('[data-input]');
 
-    const selected = () => question.scenarios[Number(select.value)];
+        const selected = () => question.scenarios[Number(select.value)];
 
-    const showRequest = () => {
-        request.textContent = requestCode(type, question, selected().text);
-    };
+        const showRequest = () => {
+            request.textContent = requestCode(type, question, selected().text);
+        };
 
-    const showInput = () => {
-        input.textContent = selected().text;
-    };
+        const showInput = () => {
+            input.textContent = selected().text;
+        };
 
-    const reset = () => {
-        before.hidden = false;
-        running.hidden = true;
-        after.hidden = true;
-        after.innerHTML = '';
-        response.textContent = 'Response appears after you run this question.';
-        button.disabled = false;
-        button.textContent = 'Run';
-        showInput();
+        const reset = () => {
+            before.hidden = false;
+            running.hidden = true;
+            after.hidden = true;
+            after.innerHTML = '';
+            response.textContent = 'Response appears after you run this question.';
+            button.disabled = false;
+            button.textContent = 'Run';
+            showInput();
+            showRequest();
+        };
+
+        select.addEventListener('change', reset);
+        button.addEventListener('click', () => run(type, select, button, before, running, after, response));
+        refreshRequests.push(showRequest);
         showRequest();
-    };
-
-    select.addEventListener('change', reset);
-    button.addEventListener('click', () => run(type, select, button, before, running, after, response));
-    refreshRequests.push(showRequest);
-    showRequest();
-});
+    });
+}
 
 async function run(type, select, button, before, running, after, response) {
     const started = performance.now();
