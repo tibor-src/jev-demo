@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Jev\QuestionClassifier;
 use Illuminate\Console\Command;
-use Laravel\Ai\Classification;
-use Laravel\Ai\Classification\Boolean;
-use Laravel\Ai\Responses\Data\BooleanAnswer;
 
 class AskJevCommand extends Command
 {
@@ -13,16 +11,8 @@ class AskJevCommand extends Command
 
     protected $description = 'Ask Jev, through the OpenRouter provider, whether the text is a question';
 
-    public function handle(): int
+    public function handle(QuestionClassifier $classifier): int
     {
-        $key = config('ai.providers.openrouter.key');
-
-        if (! is_string($key) || blank($key)) {
-            $this->error('OPENROUTER_API_KEY is not set. Add it to your .env file before calling Jev.');
-
-            return self::FAILURE;
-        }
-
         $text = $this->argument('text');
 
         if (! is_string($text) || blank($text)) {
@@ -31,19 +21,15 @@ class AskJevCommand extends Command
             return self::INVALID;
         }
 
-        $response = Classification::of($text)
-            ->question('is_question', new Boolean('Is this a question?'))
-            ->classify('openrouter');
+        $result = $classifier->classify($text);
 
-        $answer = $response->answer('is_question');
-
-        if (! $answer instanceof BooleanAnswer) {
-            $this->error('Jev did not return a yes/no probability.');
+        if (! $result->succeeded()) {
+            $this->error($result->error);
 
             return self::FAILURE;
         }
 
-        $this->info('Probability this is a question: '.$answer->probability);
+        $this->info('Probability this is a question: '.$result->probability);
 
         return self::SUCCESS;
     }
