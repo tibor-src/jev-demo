@@ -76,6 +76,9 @@ class SiteTest extends TestCase
 
         $response->assertOk();
         $response->assertSee('<title>'.$title.'</title>', false);
+        $response->assertSee('rel="icon" href="/favicon.ico"', false);
+        $response->assertSee('rel="icon" href="/favicon.svg" type="image/svg+xml"', false);
+        $response->assertSee('rel="apple-touch-icon" href="/apple-touch-icon.png"', false);
         $response->assertSee('name="description" content="'.$description.'"', false);
         $response->assertSee('rel="canonical" href="'.$url.'"', false);
         $response->assertSee('property="og:type" content="'.$ogType.'"', false);

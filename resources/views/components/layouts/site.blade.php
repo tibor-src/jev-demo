@@ -15,6 +15,9 @@
         <meta name="description" content="{{ $description }}">
         <meta name="author" content="tibor.io">
         <meta name="robots" content="index, follow">
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
         <link rel="canonical" href="{{ $canonical }}">
         <meta property="og:site_name" content="Jev - A Decision Model">
         <meta property="og:locale" content="en_US">
