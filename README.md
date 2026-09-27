@@ -6,6 +6,8 @@ Live demo: [jev.tibor.io](https://jev.tibor.io)
 
 Made by [tibor.io](https://tibor.io)
 
+![Jev Demo](public/preview.png)
+
 The page classifies one message at a time as a boolean, a choice, or a score. Each section shows the question, the input, and the request in PHP or JavaScript. Run plays a recorded answer when `OPENROUTER_API_KEY` is empty, and calls Jev when a key is set.
 
 ## Run it locally

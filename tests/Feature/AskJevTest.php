@@ -62,6 +62,8 @@ class AskJevTest extends TestCase
             ->assertSee('https://openrouter.ai/', false)
             ->assertSee('made by', false)
             ->assertSee('https://tibor.io', false)
+            ->assertSee('https://jev.tibor.io/preview.png', false)
+            ->assertSee('rel="canonical" href="https://jev.tibor.io/"', false)
             ->assertSee('>tibor.io</a>', false)
             ->assertDontSee('typesafe-sdk-js', false)
             ->assertDontSee('Jev package')

@@ -4,6 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="description" content="Jev demo. Classify a message as a boolean, choice, or score, and read the probability. A decision model from TypeSafe.">
+        <link rel="canonical" href="https://jev.tibor.io/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Jev Demo">
+        <meta property="og:description" content="Classify a message as a boolean, choice, or score, and read the probability.">
+        <meta property="og:url" content="https://jev.tibor.io/">
+        <meta property="og:image" content="https://jev.tibor.io/preview.png">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:image" content="https://jev.tibor.io/preview.png">
         <title>Jev Demo</title>
         @fonts
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -115,15 +124,17 @@
                         and set <code class="text-[#1b1b18] dark:text-[#EDEDEC]">OPENROUTER_API_KEY</code> in <code class="text-[#1b1b18] dark:text-[#EDEDEC]">.env</code>.
                     </li>
                 </ul>
-                <ul class="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                    <li><a href="https://typesafe.ai/" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">Jev by TypeSafe</a></li>
-                    <li><a href="https://packagist.org/packages/laravel/ai" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">Laravel AI SDK</a></li>
-                    <li><a href="https://docs.typesafe.ai/sdk/javascript" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">TypeSafe JavaScript SDK</a></li>
-                    <li><a href="https://openrouter.ai/" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">OpenRouter</a></li>
-                </ul>
-                <p class="text-right text-sm text-[#706f6c] dark:text-[#A1A09A]">
-                    made by <a href="https://tibor.io" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">tibor.io</a>
-                </p>
+                <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2 text-sm">
+                    <ul class="flex flex-wrap gap-x-4 gap-y-2">
+                        <li><a href="https://typesafe.ai/" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">Jev by TypeSafe</a></li>
+                        <li><a href="https://packagist.org/packages/laravel/ai" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">Laravel AI SDK</a></li>
+                        <li><a href="https://docs.typesafe.ai/sdk/javascript" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">TypeSafe JavaScript SDK</a></li>
+                        <li><a href="https://openrouter.ai/" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">OpenRouter</a></li>
+                    </ul>
+                    <p class="ml-auto text-[#706f6c] dark:text-[#A1A09A]">
+                        made by <a href="https://tibor.io" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">tibor.io</a>
+                    </p>
+                </div>
             </div>
         </main>
         <script type="application/json" id="jev-demo">@json(['live' => $live, 'questions' => $questions])</script>
