@@ -255,6 +255,7 @@ class SiteTest extends TestCase
             "User-agent: *\nAllow: /\n\nSitemap: https://jev.tibor.io/sitemap.xml\n",
             $response->getContent(),
         );
+        $this->assertSame($response->getContent(), file_get_contents(public_path('robots.txt')));
     }
 
     public function test_unknown_path_is_not_found(): void
