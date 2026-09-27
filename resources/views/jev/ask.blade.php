@@ -120,7 +120,7 @@
                     <li>No API key: Run replays a recorded answer and lets it vary a little.</li>
                     <li>
                         Live: check out
-                        <a href="https://github.com/tibor-src/jev-demo" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">github.com/tibor-src/jev-demo</a>
+                        <a href="https://github.com/tibor-src/jev-site" class="text-[#1b1b18] underline dark:text-[#EDEDEC]">github.com/tibor-src/jev-site</a>
                         and set <code class="text-[#1b1b18] dark:text-[#EDEDEC]">OPENROUTER_API_KEY</code> in <code class="text-[#1b1b18] dark:text-[#EDEDEC]">.env</code>.
                     </li>
                 </ul>

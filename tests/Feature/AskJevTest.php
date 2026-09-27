@@ -48,7 +48,7 @@ class AskJevTest extends TestCase
             ->assertSee('Request and response')
             ->assertSee('No API key: Run replays a recorded answer and lets it vary a little.')
             ->assertSee('Live: check out')
-            ->assertSee('https://github.com/tibor-src/jev-demo', false)
+            ->assertSee('https://github.com/tibor-src/jev-site', false)
             ->assertSee('https://typesafe.ai/', false)
             ->assertSee('https://packagist.org/packages/laravel/ai', false)
             ->assertSee('Jev by TypeSafe')
