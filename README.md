@@ -1,13 +1,12 @@
-# Jev local test app
+# Jev Demo
 
-A local Laravel app for calling [Jev](https://docs.typesafe.ai/introduction), TypeSafe's System One decision model, through the first-party [Laravel AI SDK](https://github.com/laravel/ai) and that package's OpenRouter provider.
+A Laravel demo of [Jev](https://typesafe.ai/), TypeSafe’s decision model. Jev reads a message and answers a typed question with a probability, instead of writing text.
 
-Jev answers typed questions about a piece of text and returns probabilities. This app asks one yes/no question: whether the text you pass is a question.
+Live demo: [jev.tibor.io](https://jev.tibor.io)
 
-## Requirements
+Made by [tibor.io](https://tibor.io)
 
-- PHP 8.3 or newer, with the `curl`, `mbstring`, `xml`, `zip`, and `sqlite3` extensions
-- Composer 2
+The page classifies one message at a time as a boolean, a choice, or a score. Each section shows the question, the input, and the request in PHP or JavaScript. Run plays a recorded answer when `OPENROUTER_API_KEY` is empty, and calls Jev when a key is set.
 
 ## Run it locally
 
@@ -15,19 +14,21 @@ Jev answers typed questions about a piece of text and returns probabilities. Thi
 composer install
 cp .env.example .env
 php artisan key:generate
+npm install
+npm run build
 ```
 
-`OPENROUTER_API_KEY` is documented in `.env.example` and is left empty. Put your OpenRouter key in `.env` when you have one. Do not commit that file.
+PHP 8.3 or newer, with `curl`, `mbstring`, `xml`, `zip`, and `sqlite3`. Composer 2. Node is only needed for the page assets.
 
-Without a key:
+Leave `OPENROUTER_API_KEY` empty to use the recorded demo. Put a key in `.env` to classify live through the OpenRouter provider in `config/ai.php` (`~typesafe/jev-latest`). Do not commit `.env`.
+
+The site is the `/` route. The CLI stays a yes/no check:
 
 ```bash
 php artisan jev:ask "Is the deploy finished?"
 ```
 
-The command exits with a failure and prints `OPENROUTER_API_KEY is not set. Add it to your .env file before calling Jev.` It does not call OpenRouter.
-
-With a key in `.env`, the same command sends the text through `laravel/ai`'s `openrouter` provider (`config/ai.php`, `default_for_classification`). The provider's default classification model is `~typesafe/jev-latest`. The command prints the probability that the text is a question.
+Without a key, that command exits and does not call Jev.
 
 ## Tests
 
@@ -35,10 +36,11 @@ With a key in `.env`, the same command sends the text through `laravel/ai`'s `op
 php artisan test
 ```
 
-## Packages
+## Links
 
-Versions are pinned in `composer.lock`.
-
-- `laravel/framework` — application
-- `laravel/ai` — Jev classification and the OpenRouter provider
-- `laravel/boost` — installed as a dev dependency (`php artisan boost:install` has already been run)
+- [Live demo](https://jev.tibor.io)
+- [tibor.io](https://tibor.io)
+- [Jev by TypeSafe](https://typesafe.ai/)
+- [Laravel AI SDK](https://packagist.org/packages/laravel/ai)
+- [TypeSafe JavaScript SDK](https://docs.typesafe.ai/sdk/javascript)
+- [OpenRouter](https://openrouter.ai/)
